@@ -13,7 +13,7 @@ export default function AdminPage() {
     const formData = new FormData(form);
 
     try {
-      const res = await fetch('https://sabc4-api-recs.onrender.com', {
+      const res = await fetch('https://sabc4-api-recs.onrender.com/api/products', {
         method: 'POST',
         body: formData, // We send the raw form data (including the file)
       });
