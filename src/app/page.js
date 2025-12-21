@@ -2,16 +2,17 @@ import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 
 // This function runs on the server every time someone visits the site
+//'https://sabc4-api-recs.onrender.com/api/products'
 async function getProducts() {
-  // We fetch from your running Backend API
-  const res = await fetch(' https://sabc4-api-recs.onrender.com/api/products', {
-    cache: 'no-store' // Ensures we always get fresh data (important for inventory)
+  // 👇 switch
+  const res = await fetch('https://sabc4-api-recs.onrender.com/api/products', {
+    cache: 'no-store'
   });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
-
+ 
   return res.json();
 }
 
@@ -49,7 +50,7 @@ export default async function Home() {
 
       {/* LIVE PRODUCT GRID */}
       <section className="py-20 px-4 md:px-8">
-        <h3 className="text-3xl font-bold text-center mb-12 uppercase tracking-wide">
+        <h3 className="text-3xl font-extrabold mb-8 uppercase tracking-tight text-brand-red">
           Latest Drops
         </h3>
         
