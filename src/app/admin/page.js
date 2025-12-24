@@ -11,19 +11,37 @@ export default function AdminPage() {
   const [customCategory, setCustomCategory] = useState('T-Shirts');
 
   // --- 1. THE GATEKEEPER LOGIC ---
-  const handleLogin = (e) => {
+const handleLogin = (e) => {
     e.preventDefault();
+    
     const securePass = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-    console.log("System Key:", securePass);
+    
+    // EMERGENCY KEY: Replace 'SABC4-TEMP-2025' with a temporary password of your choice
+    const emergencyKey = 'SABC@yu4me'; 
 
-    if (passwordInput === securePass) {
+    console.log("Environment Key:", securePass ? "LOADED" : "MISSING");
+
+    // Logic: If the input matches the secret key OR the emergency key, let us in
+    if (passwordInput === securePass || passwordInput === emergencyKey) {
       setIsAuthenticated(true);
-      toast.success('ACCESS GRANTED: ADMIN MODE ACTIVE', {
-        style: { background: '#000', color: '#fff', fontSize: '10px', fontWeight: '900' }
+      toast.success('ACCESS GRANTED', {
+        style: { background: '#000', color: '#fff', borderRadius: '0', fontSize: '10px', fontWeight: '900' }
       });
     } else {
       toast.error('ACCESS DENIED: INVALID KEY', {
-        style: { background: '#CC0000', color: '#fff', fontSize: '10px', fontWeight: '900' }
+        style: { background: '#CC0000', color: '#fff', borderRadius: '0', fontSize: '10px', fontWeight: '900' }
+      });
+    }
+  };
+
+    if (passwordInput === securePass) {
+      setIsAuthenticated(true);
+      toast.success('ACCESS GRANTED', {
+        style: { background: '#000', color: '#fff', borderRadius: '0' }
+      });
+    } else {
+      toast.error('ACCESS DENIED: INVALID KEY', {
+        style: { background: '#CC0000', color: '#fff', borderRadius: '0' }
       });
     }
   };
