@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import Footer from '../components/Footer';
 import Link from 'next/link';
+export const dynamic = 'force-dynamic';
 
 async function getProducts() {
   try {

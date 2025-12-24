@@ -64,7 +64,7 @@ export default function ShopPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <h1 className="text-4xl font-black uppercase tracking-tighter text-gray-900 mb-2">
-              The <span className="text-brand-red">Catalog</span>
+              The <span className="text-brand-red">Catalogue</span>
             </h1>
             <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">Select your level</p>
           </div>
