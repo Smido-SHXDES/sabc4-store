@@ -13,7 +13,7 @@ export default function AddToCartButton({ product }) {
     console.log("Adding to cart:", product.name);
 
     setTimeout(() => {
-      alert(`✅ ${product.name} added to cart!`);
+      // Optional: You can replace this alert with a small toast notification later
       setLoading(false);
     }, 500);
   }
@@ -22,7 +22,7 @@ export default function AddToCartButton({ product }) {
     <button 
       onClick={handleAddToCart}
       disabled={loading}
-      // 👇 Your SABC4 Brand Red styling
+      //  SABC4 Brand Red styling
       className="w-full bg-brand-red text-white font-bold uppercase tracking-widest py-4 rounded-full hover:bg-brand-dark transition-transform active:scale-95 disabled:opacity-70"
     >
       {loading ? 'Adding...' : 'Add to Cart'}

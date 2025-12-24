@@ -20,7 +20,6 @@ export default function ProductInfo({ product }) {
 
     // 2. Show visual feedback
     setTimeout(() => {
-      alert(`✅ Added ${product.name} (Size: ${selectedSize}) to Cart!`);
       setLoading(false);
     }, 500);
   }

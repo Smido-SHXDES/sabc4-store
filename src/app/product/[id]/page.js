@@ -24,8 +24,8 @@ export default async function ProductPage({ params }) {
       <Navbar />
       
       <div className="pt-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-xs font-bold uppercase text-gray-400 hover:text-brand-red mb-8 inline-block">
-          ← Back to Shop
+        <Link href="/shop" className="text-xs font-bold uppercase text-gray-400 hover:text-brand-red mb-8 inline-block">
+          ← Back to Catalog
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">

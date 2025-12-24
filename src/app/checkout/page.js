@@ -3,12 +3,14 @@ import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import { useCart } from '../../context/CartContext';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { toast } from 'react-hot-toast'; 
 
 export default function CheckoutPage() {
   const { cart, cartTotal, clearCart } = useCart();
   const router = useRouter();
 
-  // Form State (Your original logic)
   const [formData, setFormData] = useState({
     email: '',
     firstName: '',
@@ -19,10 +21,8 @@ export default function CheckoutPage() {
     phone: ''
   });
 
-  // Loading State
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // Logic: Calculate Shipping
   const shippingCost = cartTotal >= 1000 ? 0 : 150;
   const grandTotal = cartTotal + shippingCost;
 
@@ -31,17 +31,30 @@ export default function CheckoutPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsProcessing(true);
+  e.preventDefault();
+  setIsProcessing(true);
 
-    // SIMULATE PAYMENT PROCESSING
-    setTimeout(() => {
-      setIsProcessing(false);
-      clearCart();
-      alert("Payment Successful! Your order has been placed.");
-      router.push('/'); 
-    }, 2000);
-  };
+  // SIMULATE PAYMENT PROCESSING
+  setTimeout(() => {
+    setIsProcessing(false);
+    clearCart();
+    
+    // UPDATED: Replaced alert with high-end Toast
+    toast.success('ORDER PLACED! WELCOME TO SABC4', {
+      duration: 6000,
+      style: {
+        background: '#000',
+        color: '#fff',
+        fontSize: '12px',
+        fontWeight: '900',
+        borderRadius: '0px',
+        padding: '20px',
+      }
+    });
+
+    router.push('/'); 
+  }, 2000);
+};
 
   if (cart.length === 0) {
     return (
@@ -59,7 +72,15 @@ export default function CheckoutPage() {
       <Navbar />
 
       <div className="pt-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* THEME UPDATE: Page Title */}
+        
+        {/* NEW: Back to Bag Button */}
+        <div className="flex items-center gap-4 mb-8">
+          <Link href="/cart" className="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-brand-red transition-colors uppercase tracking-wide">
+            <ArrowLeftIcon className="w-4 h-4" />
+            Back to Bag
+          </Link>
+        </div>
+
         <h1 className="text-3xl font-extrabold uppercase tracking-tight text-brand-red mb-8">
           Checkout
         </h1>
@@ -71,7 +92,6 @@ export default function CheckoutPage() {
             <h2 className="text-xl font-bold uppercase mb-6 text-gray-900">Shipping Details</h2>
             
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Email */}
               <div>
                 <label className="block text-xs font-bold uppercase text-gray-900 mb-1">Email Address</label>
                 <input 
@@ -80,79 +100,38 @@ export default function CheckoutPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  // THEME UPDATE: Focus border is now brand-red
                   className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                   placeholder="john@example.com"
                 />
               </div>
 
-              {/* Names */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold uppercase text-gray-900 mb-1">First Name</label>
-                  <input 
-                    required
-                    type="text" 
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
-                  />
+                  <input required type="text" name="firstName" value={formData.firstName} onChange={handleChange} className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red" />
                 </div>
                 <div>
                   <label className="block text-xs font-bold uppercase text-gray-900 mb-1">Last Name</label>
-                  <input 
-                    required
-                    type="text" 
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
-                  />
+                  <input required type="text" name="lastName" value={formData.lastName} onChange={handleChange} className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red" />
                 </div>
               </div>
 
-              {/* Address */}
               <div>
                 <label className="block text-xs font-bold uppercase text-gray-900 mb-1">Address</label>
-                <input 
-                  required
-                  type="text" 
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
-                  placeholder="123 Vilakazi Street"
-                />
+                <input required type="text" name="address" value={formData.address} onChange={handleChange} className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red" placeholder="123 Vilakazi Street" />
               </div>
 
-              {/* City & Code */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold uppercase text-gray-900 mb-1">City</label>
-                  <input 
-                    required
-                    type="text" 
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
-                  />
+                  <input required type="text" name="city" value={formData.city} onChange={handleChange} className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red" />
                 </div>
                 <div>
                   <label className="block text-xs font-bold uppercase text-gray-900 mb-1">Postal Code</label>
-                  <input 
-                    required
-                    type="text" 
-                    name="postalCode"
-                    value={formData.postalCode}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
-                  />
+                  <input required type="text" name="postalCode" value={formData.postalCode} onChange={handleChange} className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red" />
                 </div>
               </div>
 
-              {/* Fake Payment Selector - UPDATED THEME */}
               <div className="pt-6 border-t border-gray-200 mt-6">
                 <h3 className="text-sm font-bold uppercase mb-4 text-gray-900">Payment Method</h3>
                 <div className="flex gap-4">
@@ -165,7 +144,6 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* Pay Button - UPDATED THEME */}
               <button 
                 type="submit" 
                 disabled={isProcessing}
@@ -176,15 +154,19 @@ export default function CheckoutPage() {
             </form>
           </div>
 
-          {/* RIGHT COLUMN: Order Summary */}
+          {/* RIGHT COLUMN: Order Summary (Fixed image logic maintained) */}
           <div className="h-fit bg-white p-8 rounded-xl border border-gray-100 shadow-sm">
             <h3 className="text-lg font-bold uppercase mb-6 border-b pb-4 text-brand-red">In Your Bag</h3>
             <div className="space-y-4 mb-6">
                 {cart.map((item) => (
-                    <div key={`${item.id}-${item.selectedSize}`} className="flex justify-between items-center text-sm">
+                    <div key={`${item._id}-${item.selectedSize}`} className="flex justify-between items-center text-sm">
                         <div className="flex items-center gap-3">
                             <div className="w-12 h-12 bg-gray-100 rounded overflow-hidden border border-gray-200">
-                                <img src={item.image} className="w-full h-full object-cover"/>
+                                <img 
+                                  src={item.images && item.images.length > 0 ? item.images[0] : (item.image || "https://via.placeholder.com/300")} 
+                                  className="w-full h-full object-cover"
+                                  alt={item.name}
+                                />
                             </div>
                             <div>
                                 <p className="font-bold text-gray-900">{item.name}</p>
@@ -213,7 +195,6 @@ export default function CheckoutPage() {
                 </div>
             </div>
           </div>
-
         </div>
       </div>
     </main>
