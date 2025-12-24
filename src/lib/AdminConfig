@@ -1,0 +1,1 @@
+export const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'SABC4-TEMP-2025';
